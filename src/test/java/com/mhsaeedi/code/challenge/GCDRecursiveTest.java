@@ -1,21 +1,20 @@
 package com.mhsaeedi.code.challenge;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import static com.mhsaeedi.code.challenge.GreatestCommonDividerRecursive.getGCD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.mhsaeedi.code.challenge.GCDIterative.getGCD;
 
 /**
  * @author : Mohammad <mohammad.saeedi@visual-meta.com>
  * @since : 14.02.22, Mon
  **/
-class GreatestCommonDividerIterativeTest
+class GCDRecursiveTest
 {
+
 	@Test
 	void Should_ReturnGreatestCommonDivider_When_InputIsNormalRecursive()
 	{
-		assertEquals(3, getGCD(9, 3));
 		assertEquals(3, getGCD(9, 3));
 		assertEquals(3, getGCD(3, 9));
 
@@ -56,11 +55,11 @@ class GreatestCommonDividerIterativeTest
 	@Test
 	void Should_ThrowArithmeticException_When_SmallerAbsoluteNumberIsZero()
 	{
-		assertThrows(ArithmeticException.class, () -> getGCD(80, 0));
-		assertThrows(ArithmeticException.class, () -> getGCD(-80, 0));
-		assertThrows(ArithmeticException.class, () -> getGCD(0, 80));
-		assertThrows(ArithmeticException.class, () -> getGCD(0, -80));
-		assertThrows(ArithmeticException.class, () -> getGCD(0, 0));
+		Class<ArithmeticException> arithmetic = ArithmeticException.class;
+		assertThrows(arithmetic, () -> getGCD(80, 0));
+		assertThrows(arithmetic, () -> getGCD(-80, 0));
+		assertThrows(arithmetic, () -> getGCD(0, 80));
+		assertThrows(arithmetic, () -> getGCD(0, -80));
+		assertThrows(arithmetic, () -> getGCD(0, 0));
 	}
-
 }
