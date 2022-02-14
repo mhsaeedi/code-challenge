@@ -1,20 +1,19 @@
-package com.mhsaeedi.code.challenge;
+package com.mhsaeedi.code.challenge.gcd;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static com.mhsaeedi.code.challenge.GCDIterative.getGCD;
+import static org.junit.jupiter.api.Assertions.*;
+import static com.mhsaeedi.code.challenge.gcd.GCDRecursive.getGCD;
 
 /**
  * @author : Mohammad <mohammad.saeedi@visual-meta.com>
  * @since : 14.02.22, Mon
  **/
-class GCDRecursiveTest
+class GCDIterativeTest
 {
-
 	@Test
 	void Should_ReturnGreatestCommonDivider_When_InputIsNormalRecursive()
 	{
+		assertEquals(3, getGCD(9, 3));
 		assertEquals(3, getGCD(9, 3));
 		assertEquals(3, getGCD(3, 9));
 
@@ -62,4 +61,5 @@ class GCDRecursiveTest
 		assertThrows(arithmetic, () -> getGCD(0, -80));
 		assertThrows(arithmetic, () -> getGCD(0, 0));
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.mhsaeedi.code.challenge;
+package com.mhsaeedi.code.challenge.gcd;
 
 import static java.lang.Math.*;
 
