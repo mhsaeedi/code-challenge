@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static com.mhsaeedi.code.challenge.gcd.GCDRecursive.getGCD;
 
 /**
- * @author : Mohammad <mohammad.saeedi@visual-meta.com>
+ * @author : Momo
  * @since : 14.02.22, Mon
  **/
 class GCDIterativeTest

@@ -12,7 +12,7 @@ import static com.mhsaeedi.code.challenge.kth.ArrayBuilderForTest.sortedArr;
 import static com.mhsaeedi.code.challenge.kth.KthElementByQueue.findKthLargest;
 
 /**
- * @author : Mohammad <mohammad.saeedi@visual-meta.com>
+ * @author : Momo
  * @since : 14.02.22, Mon
  **/
 class KthElementByQueueTest

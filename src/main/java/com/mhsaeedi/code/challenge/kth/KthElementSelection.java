@@ -3,7 +3,7 @@ package com.mhsaeedi.code.challenge.kth;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @author : Mohammad <mohammad.saeedi@visual-meta.com>
+ * @author : Momo
  * @since : 14.02.22, Mon
  **/
 public class KthElementSelection

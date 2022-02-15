@@ -3,7 +3,7 @@ package com.mhsaeedi.code.challenge.gcd;
 import static java.lang.Math.*;
 
 /**
- * @author : Mohammad <mohammad.saeedi@visual-meta.com>
+ * @author : Momo
  * @since : 14.02.22, Mon
  **/
 public class GCDIterative
