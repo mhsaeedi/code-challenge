@@ -1,7 +1,7 @@
-package com.mhsaeedi.code.challenge;
+package com.mhsaeedi.code.challenge.search;
 
 public class BinarySearch{
-    public static int search(long[] arr, long n){
+    public static int search(int[] arr, int n){
         int l = 0;
         int r = arr.length - 1;       
         while(l<=r){
