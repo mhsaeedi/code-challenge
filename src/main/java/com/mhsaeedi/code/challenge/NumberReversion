@@ -1,0 +1,15 @@
+package com.mhsaeedi.code.challenge;
+
+public class NumberRevdersion{
+  public static int reverse(int n){
+    if(n<10) return n;
+    int res=0;
+    //10
+    while(n>0){
+      int r = n%10;//0,1
+      res = (res + r) * 10;//0,1
+      n = n/10;//1,0
+    }
+    return res;
+  }
+}
