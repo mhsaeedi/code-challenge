@@ -1,8 +1,8 @@
 package com.mhsaeedi.code.challenge;
 
-import static java.lang.Math.abs;'
+import static java.lang.Math.abs;
 
-public class NumberRevdersion{
+public class NumberReversion{
   public static int reverse(int num){
     if(num<10 && num>-10) return num;
     int n = abs(num);
@@ -16,4 +16,4 @@ public class NumberRevdersion{
     return res;
   }
 }
-'
+

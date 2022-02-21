@@ -7,7 +7,7 @@ public class DutchFlag{
     while(j<=k)
       if(a[j]==0)swap(a,i++,j++);
       else if(a[j]==2)swap(a,j,k--);
-      elss j++;
+      else j++;
   }
 
   private static void swap(int[] a, int i, int j){
