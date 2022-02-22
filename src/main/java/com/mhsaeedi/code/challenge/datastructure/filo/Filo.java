@@ -12,7 +12,7 @@ public class Filo<E>
 
 	private Node<E> first;
 
-	public boolean add(E e)
+	public boolean push(E e)
 	{
 		if(Objects.isNull(e)) return false;
 		if (Objects.isNull(first))
@@ -26,7 +26,7 @@ public class Filo<E>
 		return true;
 	}
 
-	public Optional<E> poll(){
+	public Optional<E> pop(){
 		if(Objects.isNull(first)) return Optional.empty();
 		E res = first.getValue();
 		Node<E> newFirst = first.getNext();
@@ -37,14 +37,14 @@ public class Filo<E>
 	public static void main(String[] args)
 	{
 		Filo<String> filo = new Filo<>();
-		filo.add(null);
-		filo.add("a");
-		filo.add("b");
-		filo.add("c");
-		System.out.println(filo.poll().orElse("nothing"));
-		System.out.println(filo.poll().orElse("nothing"));
-		System.out.println(filo.poll().orElse("nothing"));
-		System.out.println(filo.poll().orElse("nothing"));
+		filo.push(null);
+		filo.push("a");
+		filo.push("b");
+		filo.push("c");
+		System.out.println(filo.pop().orElse("nothing"));
+		System.out.println(filo.pop().orElse("nothing"));
+		System.out.println(filo.pop().orElse("nothing"));
+		System.out.println(filo.pop().orElse("nothing"));
 	}
 
 }
