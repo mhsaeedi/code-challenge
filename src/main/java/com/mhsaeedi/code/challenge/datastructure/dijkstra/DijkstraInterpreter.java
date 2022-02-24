@@ -1,12 +1,11 @@
 package com.mhsaeedi.code.challenge.datastructure.dijkstra;
 
-import java.awt.dnd.InvalidDnDOperationException;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.mhsaeedi.code.challenge.datastructure.filo.Filo;
 
 import static java.lang.Character.*;
+import static com.mhsaeedi.code.challenge.datastructure.dijkstra.Operation.execute;
 
 /**
  * @author : Momo
@@ -20,39 +19,16 @@ public class DijkstraInterpreter{
 		char[] chars = expressions.toCharArray();
 		for(int i=0;i<chars.length;i++){
 			char c = chars[i];
-			if(isDigit(c)) i += handleNumber(i,chars,numbers);
+			if(isDigit(c)) i += getNumber(i,chars,numbers);
             else if (operationSet.contains(c)) operations.push(c);
-			else if(c == ')') doOperation(numbers,operations);
+			else if(c == ')') execute(numbers,operations);
 		}
 		return numbers.pop().orElseThrow();
 	}
 
-	private static void doOperation(Filo<Integer> numbers, Filo<Character> operations)
-	{
-		int b = numbers.pop().orElseThrow();
-		int a = numbers.pop().orElseThrow();
-		char op = operations.pop().orElseThrow();
-		switch(op){
-		case '+':
-			numbers.push(a+b);
-			break;
-		case '-':
-			numbers.push(a-b);
-			break;
-		case '*':
-			numbers.push(a*b);
-			break;
-		case '/':
-			numbers.push(a/b);
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
 
 
-	}
-
-	private static int handleNumber(int index, char[] chars, Filo<Integer> numbers)
+	private static int getNumber(int index, char[] chars, Filo<Integer> numbers)
 	{
 
 		int counter = -1;
