@@ -10,13 +10,24 @@ import static java.util.Objects.nonNull;
 public class BinaryTree<E extends Comparable<E>>
 {
 	private Node<E> root;
-    public void add(E e){
-	   if(isNull(root)) root = new Node<>(e,null);
-	   else add(e,root);
+	private int size;
+
+    @SafeVarargs
+    public final void add(final E... el){
+		for(E e:el)
+		{
+			if (isNull(root)) root = new Node<>(e, null);
+			else add(e, root);
+			size++;
+		}
    }
 
-   public void remove(E data){
-		remove(data,root,null);
+
+   @SafeVarargs
+   public final void remove(final E... data){
+		for(E d:data) {
+			if(remove(d,root,null)) size--;
+		}
    }
 
    public E max(){
@@ -25,6 +36,15 @@ public class BinaryTree<E extends Comparable<E>>
 
    private Node<E> max(Node<E> node) {
 		while(nonNull(node.right)) node = node.right;
+		return node;
+   }
+
+   public E min(){
+		return min(root).data;
+   }
+
+   private Node<E> min(Node<E> node){
+		while(nonNull(node.left)) node = node.left;
 		return node;
    }
 
@@ -38,45 +58,34 @@ public class BinaryTree<E extends Comparable<E>>
 
    private boolean removeMe(Node<E> node, Node<E> parent){
 		if(isNull(node.left) && isNull(node.right)) removeLeaf(node,parent);
-		else if(isNull(node.left)) noLeftRemove(node,parent);
-		else if(isNull(node.right)) noRightRemove(node,parent);
-		else removeWithSubTree(node,parent);
+		else if(isNull(node.left)) removeMeWithNoLeft(node,parent);
+		else if(isNull(node.right)) removeMeWithNoRight(node,parent);
+		else removeWithSubTree(node);
 		return true;
    }
 
-   private void removeWithSubTree(Node<E> node,Node<E> parent){
+   private void removeWithSubTree(Node<E> node){
 		Node<E> max = max(node.left);
-		if(isNull(parent)) removeRoot(max);
-		else if(node == parent.left) parent.left = max;
-		else parent.right = max;
-   }
-
-   private void removeRoot(Node<E> max)
-   {
-	   if(nonNull(max.left)) max.parent.right = max.left;
-	   else max.parent.right = null;
-
-	   max.left = root.left;
-	   max.right = root.right;
-	   root = max;
+		node.data = max.data;
+		remove(max.data,max,max.parent);
 
    }
 
-   private void noLeftRemove(Node<E> node,Node<E> parent){
+   private void removeMeWithNoLeft(Node<E> node,Node<E> parent){
 		if(isNull(parent)) root = node.right;
 		else if(node == parent.left) parent.left = node.right;
 		else parent.right = node.right;
 
    }
-   private void noRightRemove(Node<E> node,Node<E> parent){
+   private void removeMeWithNoRight(Node<E> node,Node<E> parent){
 		if(isNull(parent)) root = node.left;
 		else if(node == parent.left) parent.left = node.left;
-		else parent.right = node.left;
+		else if(node == parent.right) parent.right = node.left;
    }
    private void removeLeaf(Node<E> node,Node<E> parent){
 		if(isNull(parent)) root = null;
 		else if(node == parent.left) parent.left = null;
-		else parent.right = null;
+		else if(node == parent.right) parent.right = null;
    }
 
    private void add(E data,Node<E> node){
@@ -92,24 +101,16 @@ public class BinaryTree<E extends Comparable<E>>
 		else add(data,node.right);
    }
 
+	public int size()
+	{
+		return size;
+	}
+
    public static void main(String[] args){
 		BinaryTree<Integer> tree = new BinaryTree<>();
-		tree.add(1000);
-		tree.add(900);
-		tree.add(1100);
-		tree.add(800);
-		tree.add(1200);
-		tree.add(700);
-		tree.add(1300);
-		tree.add(600);
-		tree.add(950);
-		tree.add(910);
-		tree.add(990);
-		tree.add(1150);
-		tree.add(4000);
-		tree.add(960);
+		tree.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
 
-		tree.remove(1100);
+		tree.remove(1200);
 		tree.remove(4000);
 
 
