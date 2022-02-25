@@ -10,9 +10,9 @@ public class Operation
 {
 	protected static void execute(Filo<Integer> numbers, Filo<Character> operations)
 	{
-		int b = numbers.pop().orElseThrow();
-		int a = numbers.pop().orElseThrow();
-		char op = operations.pop().orElseThrow();
+		int b = numbers.pop();
+		int a = numbers.pop();
+		char op = operations.pop();
 		int n;
 		if (op == '+') n = a + b;
 		else if (op == '-') n = a - b;

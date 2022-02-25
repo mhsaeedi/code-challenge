@@ -1,5 +1,13 @@
 package com.mhsaeedi.code.challenge.datastructure.binarytree;
 
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
+import com.mhsaeedi.code.challenge.datastructure.filo.Filo;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -106,14 +114,84 @@ public class BinaryTree<E extends Comparable<E>>
 		return size;
 	}
 
+	public List<E> sortedRecursive()
+	{
+		List<E> result = new ArrayList<E>();
+		sortedRecursive(result, root);
+		return result;
+	}
+
+	public List<E> sortedIterative(){
+		List<E> res = new ArrayList<>();
+		Filo<Node<E>> filo = new Filo<>();
+		Node<E> current = root;
+		while(!filo.isEmpty() || nonNull(current)){
+			if(nonNull(current)){
+				current = current.left;
+				filo.push(current);
+			} else {
+				Node<E> node = filo.pop();
+				res.add(node.data);
+				filo.push(node.right);
+			}
+		}
+		return res;
+	}
+
+	public boolean equalsTo(BinaryTree<E> o)
+	{
+		return equalsToRec(root, o.root);
+	}
+
+	private boolean equalsTo(Node<E> n,Node<E> o){
+		if(isNull(n) || isNull(o)) return n == o;
+		return n.data.equals(o.data) && equalsTo(n.left,o.left) && equalsTo(n.right,o.right);
+	}
+
+	private boolean equalsToRec(Node<E> one,Node<E> other){
+		Filo<Node<E>> stack1 = new Filo<>();
+		Filo<Node<E>> stack2 = new Filo<>();
+		stack1.push(one);
+		stack2.push(other);
+		while(!stack1.isEmpty() && !stack2.isEmpty())
+		{
+			Node<E> a = stack1.pop();
+			Node<E> b = stack2.pop();
+			if(isNull(a) && isNull(b)) continue;
+			if((isNull(a) || isNull(b))) return false;
+			if(!a.data.equals(b.data)) return false;
+			stack1.push(a.left);
+			stack2.push(b.left);
+			stack1.push(a.right);
+			stack2.push(b.right);
+		}
+		return true;
+	}
+
+
+
+	private void sortedRecursive(List<E> result, Node<E> node){
+		if(isNull(node)) return;
+		sortedRecursive(result,node.left);
+		result.add(node.data);
+		sortedRecursive(result,node.right);
+	}
+
    public static void main(String[] args){
-		BinaryTree<Integer> tree = new BinaryTree<>();
-		tree.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
+		BinaryTree<Integer> tree1 = new BinaryTree<>();
+		tree1.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
 
-		tree.remove(1200);
-		tree.remove(4000);
+		BinaryTree<Integer> tree2 = new BinaryTree<>();
+		tree2.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
 
+		BinaryTree<Integer> tree3 = new BinaryTree<>();
+		tree3.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000);
 
+	   BinaryTree<Integer> tree4 = new BinaryTree<>();
+	   tree4.add(900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
+
+	   System.out.println(tree1.equalsTo(tree2));
+;
 
 
    }

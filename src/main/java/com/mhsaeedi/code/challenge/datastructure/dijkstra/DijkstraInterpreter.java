@@ -23,7 +23,7 @@ public class DijkstraInterpreter{
             else if (operationSet.contains(c)) operations.push(c);
 			else if(c == ')') execute(numbers,operations);
 		}
-		return numbers.pop().orElseThrow();
+		return numbers.pop();
 	}
 
 

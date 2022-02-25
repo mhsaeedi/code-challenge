@@ -1,7 +1,7 @@
 package com.mhsaeedi.code.challenge.datastructure.filo;
 
-import java.util.Objects;
-import java.util.Optional;
+import static java.lang.System.*;
+import static java.util.Objects.*;
 
 /**
  * @author : Momo
@@ -11,40 +11,45 @@ public class Filo<E>
 {
 
 	private Node<E> first;
+	private int size;
 
-	public boolean push(E e)
+	public void push(E data)
 	{
-		if(Objects.isNull(e)) return false;
-		if (Objects.isNull(first))
-		{
-			first = new Node<>(e);
-			return true;
-		}
-		Node<E> newFirst = new Node<>(e);
-		newFirst.setNext(first);
-		first = newFirst;
-		return true;
+		Node<E> node = new Node<>(data);
+		if (nonNull(first)) node.setNext(first);
+		first = node;
+		size++;
+
 	}
 
-	public Optional<E> pop(){
-		if(Objects.isNull(first)) return Optional.empty();
+	public E pop(){
+		if(isNull(first)) return null;
 		E res = first.getValue();
-		Node<E> newFirst = first.getNext();
-		first = newFirst;
-		return Optional.of(res);
+		first = first.getNext();
+		size--;
+		return res;
 	}
+
+	public E peek(){
+		return isNull(first) ? null : first.getValue();
+	}
+
+	public int size(){
+		return size;
+	}
+
+	public boolean isEmpty(){ return size == 0;}
 
 	public static void main(String[] args)
 	{
 		Filo<String> filo = new Filo<>();
-		filo.push(null);
 		filo.push("a");
 		filo.push("b");
 		filo.push("c");
-		System.out.println(filo.pop().orElse("nothing"));
-		System.out.println(filo.pop().orElse("nothing"));
-		System.out.println(filo.pop().orElse("nothing"));
-		System.out.println(filo.pop().orElse("nothing"));
+		out.println(filo.pop());
+		out.println(filo.pop());
+		out.println(filo.pop());
+		out.println(filo.pop());
 	}
 
 }
