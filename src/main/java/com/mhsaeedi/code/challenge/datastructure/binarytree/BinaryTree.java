@@ -1,13 +1,8 @@
 package com.mhsaeedi.code.challenge.datastructure.binarytree;
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
-
 import com.mhsaeedi.code.challenge.datastructure.filo.Filo;
-
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -116,23 +111,24 @@ public class BinaryTree<E extends Comparable<E>>
 
 	public List<E> sortedRecursive()
 	{
-		List<E> result = new ArrayList<E>();
+		List<E> result = new ArrayList<>();
 		sortedRecursive(result, root);
 		return result;
 	}
 
 	public List<E> sortedIterative(){
 		List<E> res = new ArrayList<>();
-		Filo<Node<E>> filo = new Filo<>();
+		Filo<Node<E>> stack = new Filo<>();
 		Node<E> current = root;
-		while(!filo.isEmpty() || nonNull(current)){
+		while(!stack.isEmpty() || nonNull(current)){
 			if(nonNull(current)){
+				stack.push(current);
 				current = current.left;
-				filo.push(current);
 			} else {
-				Node<E> node = filo.pop();
+				Node<E> node = stack.pop();
 				res.add(node.data);
-				filo.push(node.right);
+				current = node.right;
+
 			}
 		}
 		return res;
@@ -168,6 +164,36 @@ public class BinaryTree<E extends Comparable<E>>
 		return true;
 	}
 
+	public int sum(){
+		return sum(root);
+	}
+
+	private int sum(Node<E> node){
+		return isNull(node) ? 0 : node.weight + sum(node.left) + sum(node.right);
+	}
+
+	public E kthSmallest(int k){
+		return kthSmallest(k,root);
+	}
+
+	private E kthSmallest(int k,Node<E> root) {
+		if(k > size) return null;
+		int i = 0;
+		Filo<Node<E>> stack = new Filo<>();
+		Node<E> current = root;
+		while(!stack.isEmpty() || nonNull(current)) {
+			if(nonNull(current)){
+				stack.push(current);
+				current = current.left;
+			} else {
+				Node<E> n = stack.pop();
+				if(++i == k) return n.data;
+				current = n.right;
+			}
+		}
+		return null;
+	}
+
 
 
 	private void sortedRecursive(List<E> result, Node<E> node){
@@ -181,16 +207,7 @@ public class BinaryTree<E extends Comparable<E>>
 		BinaryTree<Integer> tree1 = new BinaryTree<>();
 		tree1.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
 
-		BinaryTree<Integer> tree2 = new BinaryTree<>();
-		tree2.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
-
-		BinaryTree<Integer> tree3 = new BinaryTree<>();
-		tree3.add(1000,900,1100,800,1200,700,1300,600,950,910,990,1150,4000);
-
-	   BinaryTree<Integer> tree4 = new BinaryTree<>();
-	   tree4.add(900,1100,800,1200,700,1300,600,950,910,990,1150,4000,960);
-
-	   System.out.println(tree1.equalsTo(tree2));
+	   System.out.println(tree1.sum());
 ;
 
 
